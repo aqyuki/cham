@@ -41,7 +41,6 @@ func run(ctx context.Context) exitCode {
 		fmt.Printf("failed to stop the bot\n\t%v\n", err)
 		return ExitCodeError
 	}
-
 	return ExitCodeOK
 }
 
