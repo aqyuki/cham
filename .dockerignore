@@ -1,0 +1,10 @@
+.git
+
+.dockerignore
+.editorconfig
+.gitignore
+.gitattributes
+README.md
+license.txt
+renovate.json
+staticcheck.conf
