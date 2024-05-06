@@ -8,6 +8,7 @@ import (
 
 	"github.com/aqyuki/expand-bot/config"
 	"github.com/aqyuki/expand-bot/discord"
+	"github.com/aqyuki/expand-bot/logging"
 )
 
 type exitCode int
@@ -27,18 +28,20 @@ func main() {
 }
 
 func run(ctx context.Context) exitCode {
+	logger := logging.DefaultLogger()
+
 	store := config.NewStore()
-	bot := discord.NewBot(store)
+	bot := discord.NewBot(store, discord.WithLogger(logger))
 
 	if err := bot.Start(); err != nil {
-		fmt.Printf("failed to start the bot\n\t%v\n", err)
+		logger.Errorf("failed to start the bot\n\t%v\n", err)
 		return ExitCodeError
 	}
 
 	<-ctx.Done()
 	fmt.Printf("received signal to stop the bot\nshutting down...\n")
 	if err := bot.Stop(); err != nil {
-		fmt.Printf("failed to stop the bot\n\t%v\n", err)
+		logger.Errorf("failed to stop the bot\n\t%v\n", err)
 		return ExitCodeError
 	}
 	return ExitCodeOK
