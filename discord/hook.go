@@ -4,6 +4,7 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -64,7 +65,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				IconURL: citationMsg.Author.AvatarURL("64"),
 			},
 			Description: citationMsg.Content,
-			Timestamp:   citationMsg.Timestamp.Format("2006/01/02 15:04"),
+			Timestamp:   citationMsg.Timestamp.Format(time.RFC3339),
 			Footer: &discordgo.MessageEmbedFooter{
 				Text: citationChannel.Name,
 			},
