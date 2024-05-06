@@ -69,6 +69,7 @@ func newMessageCreateHandler(logger *zap.SugaredLogger) func(*discordgo.Session,
 					Name:    citationMsg.Author.Username,
 					IconURL: citationMsg.Author.AvatarURL("64"),
 				},
+				Color:       0x7fffff,
 				Description: citationMsg.Content,
 				Timestamp:   citationMsg.Timestamp.Format(time.RFC3339),
 				Footer: &discordgo.MessageEmbedFooter{
@@ -84,7 +85,7 @@ func newMessageCreateHandler(logger *zap.SugaredLogger) func(*discordgo.Session,
 			Embeds:    embeds,
 			Reference: m.Reference(),
 			AllowedMentions: &discordgo.MessageAllowedMentions{
-				Users: []string{m.Author.ID},
+				RepliedUser: true,
 			},
 		}
 		if _, err := s.ChannelMessageSendComplex(m.ChannelID, &replyMsg); err != nil {
