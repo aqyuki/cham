@@ -78,6 +78,7 @@ func (b *Bot) Stop() error {
 	if err := b.client.Close(); err != nil {
 		return fmt.Errorf("failed to close session to discord because %w", err)
 	}
+	b.logger.Info("bot is stopped")
 	return nil
 }
 
