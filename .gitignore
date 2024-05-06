@@ -16,3 +16,5 @@ go.work
 
 # editor settings
 .vscode
+
+.env
