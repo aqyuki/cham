@@ -36,6 +36,7 @@ func run(ctx context.Context) exitCode {
 	}
 
 	<-ctx.Done()
+	fmt.Printf("received signal to stop the bot\nshutting down...\n")
 	if err := bot.Stop(); err != nil {
 		fmt.Printf("failed to stop the bot\n\t%v\n", err)
 		return ExitCodeError
