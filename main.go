@@ -2,8 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
+
+	"github.com/aqyuki/expand-bot/config"
+	"github.com/aqyuki/expand-bot/discord"
 )
 
 type exitCode int
@@ -22,8 +26,21 @@ func main() {
 	defer exit(code)
 }
 
-func run(_ context.Context) exitCode {
-	// Do something
+func run(ctx context.Context) exitCode {
+	store := config.NewStore()
+	bot := discord.NewBot(store)
+
+	if err := bot.Start(); err != nil {
+		fmt.Printf("failed to start the bot\n\t%v\n", err)
+		return ExitCodeError
+	}
+
+	<-ctx.Done()
+	if err := bot.Stop(); err != nil {
+		fmt.Printf("failed to stop the bot\n\t%v\n", err)
+		return ExitCodeError
+	}
+
 	return ExitCodeOK
 }
 
