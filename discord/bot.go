@@ -46,6 +46,8 @@ func (b *Bot) Start() error {
 	if err := b.client.Open(); err != nil {
 		return fmt.Errorf("failed to open session to discord because %w", err)
 	}
+	session.AddHandler(messageCreate)
+
 	b.client = session
 	return nil
 }
