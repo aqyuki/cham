@@ -65,6 +65,7 @@ func (b *Bot) Start() error {
 	}
 
 	b.client = session
+	b.logger.Info("bot is running")
 	return nil
 }
 
