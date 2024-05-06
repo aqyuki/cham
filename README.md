@@ -4,7 +4,8 @@ Discord 上で送信されたメッセージリンクを展開します．
 
 ## How to use
 
->[!NOTE] この Bot は Docker 上で動作させることを想定しています．
+> [!NOTE]
+> この Bot は Docker 上で動作させることを想定しています．
 
 事前に，Discord Token を発行し，Bot をサーバーに招待してください．
 
