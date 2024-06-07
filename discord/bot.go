@@ -16,11 +16,6 @@ type Bot struct {
 	logger *zap.SugaredLogger
 }
 
-// DiscordConfigProvider is an interface that provides the configuration for the Discord bot.
-type DiscordConfigProvider interface {
-	DiscordConfig() Config
-}
-
 // Config holds the discord configuration
 type Config struct {
 	Token string
