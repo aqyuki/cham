@@ -35,9 +35,9 @@ func WithLogger(logger *zap.SugaredLogger) Option {
 }
 
 // NewBot creates a new Bot instance.
-func NewBot(config DiscordConfigProvider, opts ...Option) Bot {
+func NewBot(config Config, opts ...Option) Bot {
 	b := Bot{
-		config: config.DiscordConfig(),
+		config: config,
 		client: nil,
 		logger: logging.DefaultLogger(),
 	}
