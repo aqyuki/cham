@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/aqyuki/expand-bot/logging"
-	"github.com/aqyuki/expand-bot/types"
 	"github.com/bwmarrin/discordgo"
 	"go.uber.org/zap"
 )
@@ -24,7 +23,7 @@ type DiscordConfigProvider interface {
 
 // Config holds the discord configuration
 type Config struct {
-	Token types.SecretString
+	Token string
 }
 
 type Option func(*Bot)
@@ -54,7 +53,7 @@ func (b *Bot) Start() error {
 		return errors.New("bot is already running")
 	}
 
-	session, err := discordgo.New("Bot " + b.config.Token.Raw())
+	session, err := discordgo.New("Bot " + b.config.Token)
 	if err != nil {
 		return fmt.Errorf("failed to create session to discord because %w", err)
 	}
