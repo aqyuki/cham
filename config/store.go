@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/aqyuki/expand-bot/discord"
-	"github.com/aqyuki/expand-bot/types"
 )
 
 // Store manages the configuration of the application.
@@ -19,7 +18,7 @@ func (s Store) DiscordConfig() discord.Config {
 func NewStore() Store {
 	return Store{
 		discord: discord.Config{
-			Token: types.SecretString(os.Getenv("DISCORD_TOKEN")),
+			Token: os.Getenv("DISCORD_TOKEN"),
 		},
 	}
 }

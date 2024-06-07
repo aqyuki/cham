@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/aqyuki/expand-bot/logging"
-	"github.com/aqyuki/expand-bot/types"
 	"github.com/bwmarrin/discordgo"
 	"go.uber.org/zap"
 )
@@ -17,14 +16,9 @@ type Bot struct {
 	logger *zap.SugaredLogger
 }
 
-// DiscordConfigProvider is an interface that provides the configuration for the Discord bot.
-type DiscordConfigProvider interface {
-	DiscordConfig() Config
-}
-
 // Config holds the discord configuration
 type Config struct {
-	Token types.SecretString
+	Token string
 }
 
 type Option func(*Bot)
@@ -36,9 +30,9 @@ func WithLogger(logger *zap.SugaredLogger) Option {
 }
 
 // NewBot creates a new Bot instance.
-func NewBot(config DiscordConfigProvider, opts ...Option) Bot {
+func NewBot(config Config, opts ...Option) Bot {
 	b := Bot{
-		config: config.DiscordConfig(),
+		config: config,
 		client: nil,
 		logger: logging.DefaultLogger(),
 	}
@@ -54,7 +48,7 @@ func (b *Bot) Start() error {
 		return errors.New("bot is already running")
 	}
 
-	session, err := discordgo.New("Bot " + b.config.Token.Raw())
+	session, err := discordgo.New("Bot " + b.config.Token)
 	if err != nil {
 		return fmt.Errorf("failed to create session to discord because %w", err)
 	}

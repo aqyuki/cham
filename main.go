@@ -31,7 +31,7 @@ func run(ctx context.Context) exitCode {
 	logger := logging.DefaultLogger()
 
 	store := config.NewStore()
-	bot := discord.NewBot(store, discord.WithLogger(logger))
+	bot := discord.NewBot(store.DiscordConfig(), discord.WithLogger(logger))
 
 	if err := bot.Start(); err != nil {
 		logger.Errorf("failed to start the bot\n\t%v\n", err)
