@@ -18,11 +18,14 @@ func newMessageCreateHandler(logger *zap.SugaredLogger) func(*discordgo.Session,
 			return
 		}
 
-		var embeds []*discordgo.MessageEmbed
-
 		// if the message contains message link, expand it
 		links := extractMessageLinks(m.Content)
-		logger.Debug("detected message links", zap.Strings("links", links))
+		if len(links) == 0 {
+			logger.Info("skip message because it does not contain message links")
+			return
+		}
+
+		var embeds []*discordgo.MessageEmbed
 
 		for _, link := range links {
 			info, err := extractMessageInfo(link)
@@ -96,7 +99,7 @@ func newMessageCreateHandler(logger *zap.SugaredLogger) func(*discordgo.Session,
 	}
 }
 
-var rgx = regexp.MustCompile(`https://(?:ptb\.|canary\.)?discord\.com/channels/(\d+)/(\d+)/(\d+)`)
+var rgx = regexp.MustCompile(`https://(?:ptb\.|canary\.)?discord(app)?\.com/channels/(\d+)/(\d+)/(\d+)`)
 
 func extractMessageLinks(s string) []string {
 	return rgx.FindAllString(s, -1)
