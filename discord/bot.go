@@ -70,8 +70,6 @@ func (b *Bot) Stop() error {
 	if b.client == nil {
 		return errors.New("bot is not running")
 	}
-
-	defer b.purge()
 	if err := b.client.Close(); err != nil {
 		return fmt.Errorf("failed to close session to discord because %w", err)
 	}
@@ -79,10 +77,6 @@ func (b *Bot) Stop() error {
 	return nil
 }
 
-// purge cleans up the bot instance.
-func (b *Bot) purge() {
-	b.client = nil
-}
 func (b *Bot) expandMessageLink(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// Ignore all messages created by the bot itself
 	if m.Author.Bot {
