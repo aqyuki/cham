@@ -114,12 +114,12 @@ type message struct {
 // extractMessageInfo extracts the channel ID and message ID from the message link.
 func extractMessageInfo(link string) (info message, err error) {
 	segments := strings.Split(link, "/")
-	if len(segments) >= 4 {
-		return message{
-			guild:   segments[len(segments)-3],
-			channel: segments[len(segments)-2],
-			message: segments[len(segments)-1],
-		}, nil
+	if len(segments) < 4 {
+		return message{}, errors.New("invalid message link")
 	}
-	return message{}, errors.New("invalid message link")
+	return message{
+		guild:   segments[len(segments)-3],
+		channel: segments[len(segments)-2],
+		message: segments[len(segments)-1],
+	}, nil
 }
