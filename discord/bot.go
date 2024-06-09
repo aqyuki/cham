@@ -11,7 +11,7 @@ import (
 
 // Bot provides features to interact with Discord.
 type Bot struct {
-	config Config
+	token  string
 	client *discordgo.Session
 	logger *zap.SugaredLogger
 }
@@ -30,9 +30,9 @@ func WithLogger(logger *zap.SugaredLogger) Option {
 }
 
 // NewBot creates a new Bot instance.
-func NewBot(config Config, opts ...Option) Bot {
+func NewBot(token string, opts ...Option) Bot {
 	b := Bot{
-		config: config,
+		token:  token,
 		client: nil,
 		logger: logging.DefaultLogger(),
 	}
@@ -48,7 +48,7 @@ func (b *Bot) Start() error {
 		return errors.New("bot is already running")
 	}
 
-	session, err := discordgo.New("Bot " + b.config.Token)
+	session, err := discordgo.New("Bot " + b.token)
 	if err != nil {
 		return fmt.Errorf("failed to create session to discord because %w", err)
 	}
