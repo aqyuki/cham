@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/aqyuki/expand-bot/config"
 	"github.com/aqyuki/expand-bot/discord"
 	"github.com/aqyuki/expand-bot/logging"
 )
@@ -29,9 +28,7 @@ func main() {
 
 func run(ctx context.Context) exitCode {
 	logger := logging.DefaultLogger()
-
-	store := config.NewStore()
-	bot := discord.NewBot(store.DiscordConfig(), discord.WithLogger(logger))
+	bot := discord.NewBot(loadTokenFromEnv(), discord.WithLogger(logger))
 
 	if err := bot.Start(); err != nil {
 		logger.Errorf("failed to start the bot\n\t%v\n", err)
@@ -50,4 +47,8 @@ func run(ctx context.Context) exitCode {
 // exit is a wrapper of os.Exit.
 func exit[T ~int](code T) {
 	os.Exit(int(code))
+}
+
+func loadTokenFromEnv() string {
+	return os.Getenv("DISCORD_TOKEN")
 }
