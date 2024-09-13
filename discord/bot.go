@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aqyuki/expand-bot/logging"
+	"github.com/aqyuki/cham/logging"
 	"github.com/bwmarrin/discordgo"
 	"go.uber.org/zap"
 )

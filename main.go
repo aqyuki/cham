@@ -6,8 +6,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/aqyuki/expand-bot/discord"
-	"github.com/aqyuki/expand-bot/logging"
+	"github.com/aqyuki/cham/discord"
+	"github.com/aqyuki/cham/logging"
 )
 
 type exitCode int

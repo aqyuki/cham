@@ -1,4 +1,4 @@
-module github.com/aqyuki/expand-bot
+module github.com/aqyuki/cham
 
 go 1.22.2
 

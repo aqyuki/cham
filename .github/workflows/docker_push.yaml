@@ -23,10 +23,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push Docker image
         run: |
-          docker build --tag ghcr.io/$GITHUB_ACTOR/expand-bot:latest \
-          --tag ghcr.io/$GITHUB_ACTOR/expand-bot:$(echo $GITHUB_SHA | head -c7) \
+          docker build --tag ghcr.io/$GITHUB_ACTOR/cham:latest \
+          --tag ghcr.io/$GITHUB_ACTOR/cham:$(echo $GITHUB_SHA | head -c7) \
           .
       - name: Push Docker image
         run: |
-          docker push ghcr.io/$GITHUB_ACTOR/expand-bot:latest
-          docker push ghcr.io/$GITHUB_ACTOR/expand-bot:$(echo $GITHUB_SHA | head -c7)
+          docker push ghcr.io/$GITHUB_ACTOR/cham:latest
+          docker push ghcr.io/$GITHUB_ACTOR/cham:$(echo $GITHUB_SHA | head -c7)
